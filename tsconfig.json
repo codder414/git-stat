@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "downlevelIteration": true,
+        "lib": ["es6", "es2015" ],
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": true,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "rootDir": "src",
+        "outDir": "dist",
+        "watch": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "types": ["node", "reflect-metadata"],
+        "moduleResolution": "node",
+        "sourceMap": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
