@@ -1,5 +1,5 @@
 {
-  "name": "git_utils",
+  "name": "git-stat",
   "version": "1.0.2",
   "description": "",
   "main": "./dist/bin/index.js",
@@ -32,6 +32,6 @@
     "yargs": "^13.2.4"
   },
   "bin": {
-    "git-stat-all": "./dist/bin/index.js"
+    "git-stat": "./dist/bin/index.js"
   }
 }
