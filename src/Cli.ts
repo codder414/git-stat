@@ -1,5 +1,5 @@
 import { Command } from './Command';
-import * as yargs from 'yargs';
+import yargs from 'yargs';
 
 export class Cli {
 	private _commands: Command[] = [];

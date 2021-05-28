@@ -1,5 +1,5 @@
 import { Cli } from './Cli';
-import * as execa from 'execa';
+import execa from 'execa';
 import * as fsx from 'fs-extra';
 import * as path from 'path';
 import Table from 'cli-table';
