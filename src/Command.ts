@@ -1,4 +1,4 @@
-import * as yargs from 'yargs';
+import yargs from 'yargs';
 
 export class Command {
 	private _validatorFn: (self: Command) => void;
