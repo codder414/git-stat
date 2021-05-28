@@ -15,7 +15,8 @@
         "emitDecoratorMetadata": true,
         "types": ["node", "reflect-metadata"],
         "moduleResolution": "node",
-        "sourceMap": true
+        "sourceMap": true,
+        "esModuleInterop": true
     },
     "include": [
         "src/**/*"
