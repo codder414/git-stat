@@ -24,7 +24,7 @@ export async function main() {
 		.setValidator(async (self) => {
 			try {
 				const commitHash = self.getInputValue();
-				await execa(`git cat-file -e ${commitHash}`, {
+				await execa.command(`git cat-file -e ${commitHash}`, {
 					cwd: self.dependent.getValue()
 				});
 			} catch (err) {
@@ -55,6 +55,13 @@ export async function main() {
 			}
 		}
 
+		const fields = [
+			{ label: 'author', pattern: '%ae' },
+			{ label: 'name', pattern: '%s' },
+			{ label: 'hash', pattern: '%h' },
+			{ label: 'date', pattern: '%cr' }
+		];
+
 		let gitShowResult;
 		if (hash) {
 			gitShowResult = await execa(
@@ -65,7 +72,7 @@ export async function main() {
 					'show',
 					'--decorate=short',
 					'--relative',
-					'--pretty=format:">>>%ae|%s|%h"',
+					`--pretty=format:">>>${fields.map((f) => f.pattern).join('|')}"`,
 					'--name-only'
 				],
 				{ input: hash, cwd: projectPath }
@@ -83,7 +90,7 @@ export async function main() {
 					'show',
 					'--decorate=short',
 					'--relative',
-					'--pretty=format:">>>%ae|%s|%h|%cr"',
+					`--pretty=format:">>>${fields.map((f) => f.pattern).join('|')}"`,
 					'--name-only'
 				],
 				{ input: gitLogResult.stdout, cwd: projectPath }
@@ -96,17 +103,17 @@ export async function main() {
 				let newCommit = {
 					author: '',
 					name: '',
-					files: [],
 					hash: '',
-					date: ''
+					date: '',
+					files: []
 				};
 				const [msg, ...files] = commit.split('\n');
 				const [author, name, hash, date] = msg.split('|');
 				newCommit.author = author;
 				newCommit.name = name;
-				newCommit.files = files;
-				newCommit.hash = hash.replace('"', '');
+				newCommit.hash = hash?.replace('"', '');
 				newCommit.date = date;
+				newCommit.files = files;
 				return newCommit;
 			});
 
@@ -125,9 +132,7 @@ export async function main() {
 						files: commit.files.length,
 						hash: commit.hash,
 						date: commit.date
-					})),
-					null,
-					2
+					}))
 				)
 			);
 		} else {
